@@ -18,47 +18,47 @@
         h1 { text-align: center; font-family: "Zen Dots", sans-serif; font-size: 600%; color: #ff0000; }
         h2 { text-align: center; font-family: Impact, sans-serif; font-size: 400%; color: #22ff00; }
         h3 { text-align: center; font-family: "Zen Dots", sans-serif; font-size: 300%; color: #2200ff; }
-        p { font-family: "Zen Dots", sans-serif; font-size: 20px; text-align: center; font-weight: normal; color: #ffffff; }
+        p  { font-family: "Zen Dots", sans-serif; font-size: 20px; text-align: center; font-weight: normal; color: #ffffff; }
         .center { display: block; margin-left: auto; margin-right: auto; }
-        .left { float: left; }
-        .right { float: right; }
-        th, td { border: 1px solid; color: rgb(255, 255, 255); }
-        th, td { font-size: 300%; color: rgb(255, 255, 255); }
 
+        /* ── HEADER ── */
         .header {
             position: relative;
-            top: 0;
-            padding: 10px 16px;
-            display: block;
-            margin: 0;
-            height: auto;
             width: 100%;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
+            box-sizing: border-box;
+            padding: 40px 16px 60px;
+            background-color: #111;
         }
         .background-image {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
-            z-index: -1;
+            z-index: 0;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
         }
         .overlay-text {
             position: relative;
             z-index: 2;
-            color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            padding: 40px 0 60px 0;
+            gap: 12px;
         }
-        .zen-dots-regular {
-            font-family: "Zen Dots", sans-serif;
-            font-weight: 100;
-            font-style: normal;
-        }
+        .overlay-text img { width: clamp(80px, 20%, 200px); }
+
+        /* ── SOCIALS ── */
         .fa {
             padding: 20px;
             font-size: 30px;
@@ -67,82 +67,173 @@
             text-decoration: none;
             border-radius: 50%;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 8px auto;
         }
-        .fa-youtube {
-            background: #ff0b50;
-            color: white;
-        }
-        .fa-instagram {
-            background: #ed178c;
-            color: white;
-        }
-        .row {
+        .fa-youtube   { background: #ff0b50; color: white; }
+        .fa-instagram { background: #ed178c; color: white; }
+
+        /* ── PHOTO GRID ── */
+        .photo-grid {
             display: flex;
             flex-wrap: wrap;
-            padding: 0 4px;
+            gap: 10px;
+            justify-content: center;
+            padding: 30px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
-        .column {
-            flex: 50%;
-            padding: 0 4px;
+        .photo-grid img {
+            width: calc(33% - 10px);
+            min-width: 160px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border: 2px solid #333;
+            border-radius: 4px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
         }
-        .column img {
-            margin-top: 8px;
-            vertical-align: middle;
+        .photo-grid img:hover {
+            transform: scale(1.04);
+            border-color: #ff0000;
+            box-shadow: 0 0 18px #ff0000aa;
         }
-        iframe {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
         }
+        .lightbox.open { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 3px solid #ff0000;
+            border-radius: 6px;
+            box-shadow: 0 0 40px #ff0000aa;
+            animation: popIn 0.2s ease;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 48px;
+            color: white;
+            cursor: pointer;
+            line-height: 1;
+            font-family: sans-serif;
+        }
+        .lightbox-close:hover { color: #ff0000; }
+
+        /* ── VIDEO ── */
+        iframe { display: block; margin: 30px auto; }
     </style>
 
-    <header>
+    <body>
+        <!-- Lightbox overlay -->
+        <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+            <img id="lightbox-img" src="" alt="expanded photo" onclick="event.stopPropagation()">
+        </div>
+
         <div class="header" id="header">
-            <img src="backround.jpg" class="background-image" alt="background">
+            <img src="backround.jpg" class="background-image" alt="background" onerror="this.style.display='none'">
             <div class="overlay-text">
-                <img src="logo.png" width="25%" alt="RKS Logo">
-                <h1 style="font-size: 450%">Ryan Kite Smith</h1>
+                <img src="logo.png" alt="RKS Logo" onerror="this.style.display='none'">
+                <h1 style="font-size: 450%; margin: 0;">Ryan Kite Smith</h1>
             </div>
         </div>
-    </header>
 
-    <body>
-        <p>Ryan Kite Smith is a drummer, percussionist and aspiring DJ/producer from Etobicoke. Ryan is versatile playing with rock bands, jazz bands and full orchestras in a variety of genres and styles from Funk to Mambos Ryan is equipped to do it all. He is currently studying at the University of Guelph for a B.A in Music collaborating with a variety of local artists and fellow students in performances and releases.</p>
-
+        <p>     Ryan Kite Smith is a drummer, percussionist and aspiring DJ/producer from Etobicoke. Ryan is versatile playing with rock bands, jazz bands and full orchestras in a variety of genres and styles from Funk to Mambos Ryan is equipped to do it all. He is currently studying at the University of Guelph for a B.A in Music collaborating with a variety of local artists and fellow students in performances and releases.</p>
         <div>
-            <h3>Socials and Contacts</h3>
+            <h3>📲 Socials and Contacts 📲</h3>
             <a href="https://www.instagram.com/rks.official__/" class="fa fa-instagram"></a>
             <a href="https://www.youtube.com/@ryethacarre" class="fa fa-youtube"></a>
             <p>ryan@kitesmith.ca</p>
             <p>416-709-5261</p>
         </div>
 
-        <div class="row">
-            <div class="column">
-                <img src="RKS1.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 1">
-                <img src="RKS2.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 2">
+        <h3>📸 Photos 📸</h3>
+        <div class="photo-grid">
+            <img src="RKS1.jpg"      alt="RKS Photo 1"  onclick="openLightbox(this)">
+            <img src="RKS2.jpg"      alt="RKS Photo 2"  onclick="openLightbox(this)">
+            <img src="RKS3.jpg"      alt="RKS Photo 3"  onclick="openLightbox(this)">
+            <img src="RKS4.jpg"      alt="RKS Photo 4"  onclick="openLightbox(this)">
+            <img src="RKS5.jpg"      alt="RKS Photo 5"  onclick="openLightbox(this)">
+            <img src="backround.jpg" alt="Background"   onclick="openLightbox(this)">
+        </div>
+
+        <h3>🎬 Watch 🎬</h3>
+        <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/FH0RrSIdJYU"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+        </iframe>
+
+        <h3>🎥 Featured Video 🎥</h3>
+        <video width="560" height="315" controls style="display:block; margin: 30px auto; border: 2px solid #333; border-radius: 4px;">
+            <source src="RKSVIDEO.mp4" type="video/mp4">
+            <source src="RKSVIDEO.webm" type="video/webm">
+            <source src="RKSVIDEO.mov" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+
+        <h3>🗣️ What People Are Saying 🗣️</h3>
+        <div style="max-width: 800px; margin: 0 auto; padding: 20px 30px;">
+
+            <div style="border-left: 4px solid #ff0000; padding: 16px 24px; margin-bottom: 40px;">
+                <p style="font-style: italic; text-align: left;">"Working with Ryan is like drinking from the holy grail. It fills you with such a sense of wonder and fulfillment that will stay with you for the rest of your life. To measure Ryan's heroism one would need a logarithmic scale. It is so immense however that it would still appear exponential. His 2 4 8 polyrhythms expand the mind beyond its natural limits and lead you to nirvana."</p>
+                <p style="text-align: right; color: #22ff00; margin-top: 10px;">— Riley Armstrong</p>
             </div>
-            <div class="column">
-                <img src="RKS3.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 3">
-                <img src="RKS4.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 4">
+
+            <div style="border-left: 4px solid #ff0000; padding: 16px 24px; margin-bottom: 40px;">
+                <p style="font-style: italic; text-align: left;">"Ryan is not just a drummer, he is THE drummer. His beat making ability is comparable to the culinary abilities of the world's finest chefs. But the truth is, he is so much more than that. Ryan is like an unexpected snow-day: exciting, refreshing, and rejuvenating. Working with Ryan has been an absolute treat each and every time, and I hope to work with him again many more times in the future."</p>
+                <p style="text-align: right; color: #22ff00; margin-top: 10px;">— Kai Richtmann, 2026</p>
             </div>
+
+            <div style="border-left: 4px solid #ff0000; padding: 16px 24px; margin-bottom: 40px;">
+                <p style="font-style: italic; text-align: left;">"Ryan Kite Smith is a breath of fresh air. His positive attitude, respect for other artists and ability to see the vision before a project is complete make him an invaluable team member."</p>
+                <p style="text-align: right; color: #22ff00; margin-top: 10px;">— Connor Roy</p>
+            </div>
+
+            <div style="border-left: 4px solid #ff0000; padding: 16px 24px; margin-bottom: 40px;">
+                <p style="font-style: italic; text-align: left;">"A Patriot. A testament to the impact one man can have on the many. His presence always comforting. Place yourself in the mind of a a young badger in the prairie. Your first day of life on this blessed planet. The acrid of dusk falls upon you for the first time, a foreboding terror falls upon you. Gifter of life, your mother rests beside you to bring you into the sanctum of the burrow. Safe at last. Now, Do you see it? Do you feel it? Do you taste it? Welcome to my world. I am the badger, Ryan is my badger mother."</p>
+                <p style="text-align: right; color: #22ff00; margin-top: 10px;">— Conor Clinton</p>
+            </div>
+
         </div>
 
-        <div style="clear: both; padding-top: 40px;">
-            <iframe width="420" height="320" src="https://www.youtube.com/embed/Soa3gO7tL-c?loop=1"></iframe>
+        <div style="padding: 40px 40px 20px;">
+            <p>Ryan Kite Smith is a drummer, percussionist, and aspiring DJ/producer from Etobicoke whose musical identity is defined by both versatility and curiosity. Equally comfortable behind a full drum kit, a set of congas, or electronic production software, Ryan has developed a reputation for adapting seamlessly across musical contexts. From driving the energy of rock bands to navigating the intricate phrasing of jazz ensembles and supporting the dynamic range of full orchestras, his playing reflects a deep understanding of rhythm and texture. Drawing inspiration from genres as diverse as funk, mambo, hip-hop, and electronic music, Ryan approaches each performance with a blend of technical precision and expressive creativity.</p>
+            <p style="padding-top: 20px;">Currently pursuing a Bachelor of Arts in Music at the University of Guelph, Ryan is actively involved in the local music scene, collaborating with fellow students and artists on both live performances and recorded projects. He has contributed to a range of campus ensembles and independent releases, often taking on roles that extend beyond drumming into arrangement and production. Known among his peers for his work ethic and openness to experimentation, Ryan is constantly refining his craft — whether that means studying complex rhythmic traditions, producing tracks in his home studio, or performing at local venues and events.</p>
         </div>
 
-        <div style="padding-top: 60px;">
-            <p>Ryan Kite Smith is a drummer, percussionist, and aspiring DJ/producer from Etobicoke whose musical identity is defined by both versatility and curiosity. Equally comfortable behind a full drum kit, a set of congas, or electronic production software, Ryan has developed a reputation for adapting seamlessly across musical contexts. From driving the energy of rock bands to navigating the intricate phrasing of jazz ensembles and supporting the dynamic range of full orchestras, his playing reflects a deep understanding of rhythm and texture. Drawing inspiration from genres as diverse as funk, mambo, hip-hop, and electronic music, Ryan approaches each performance with a blend of technical precision and expressive creativity. His ability to move fluidly between traditional percussion and modern production tools allows him to bridge the gap between live performance and digital sound design.
-            <br><br>
-            Currently pursuing a Bachelor of Arts in Music at the University of Guelph, Ryan is actively involved in the local music scene, collaborating with fellow students and artists on both live performances and recorded projects. He has contributed to a range of campus ensembles and independent releases, often taking on roles that extend beyond drumming into arrangement and production. Known among his peers for his work ethic and openness to experimentation, Ryan is constantly refining his craft, whether that means studying complex rhythmic traditions, producing tracks in his home studio, or performing at local venues and events. As he continues to grow as both a musician and producer, Ryan aims to carve out a unique artistic voice that blends his diverse influences into a cohesive and forward-thinking sound.</p>
+        <div style="text-align: center; padding: 20px 0 40px;">
+            <p style="color: rgb(124,124,124); font-size: 100%">💻 Programmed from scratch in HTML5 and CSS.</p>
+            <a href="https://github.com/RyRoRyRo/RKS-EPK" style="color: rgb(124,124,124); font-size: 100%; text-decoration: underline">🐙 Github</a>
         </div>
 
-        <div class="center" style="padding-top: 40px; padding-bottom: 40px;">
-            <p style="color: rgb(124, 124, 124); font-size: 100%">Programmed from scratch in HTML5 and CSS.</p>
-            <a href="https://github.com/RyRoRyRo/RKS-EPK" style="color: rgb(124, 124, 124); font-size: 100%; text-decoration: underline">Github</a>
-        </div>
+        <script>
+            function openLightbox(img) {
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').classList.add('open');
+            }
+            function closeLightbox() {
+                document.getElementById('lightbox').classList.remove('open');
+            }
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        </script>
     </body>
 </html>
