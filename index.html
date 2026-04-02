@@ -5,146 +5,144 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     </head>
-    <style> /*background-image:url(http://art.teleportacia.org/observation/vernacular/stars/starry.gif)*/
-        body {background-color:#000000;background-repeat:repeat;background-position:top left;background-attachment:fixed; margin-top: -300px}
-        h1{text-align:center;font-family:"Zen Dots", sans-serif;font-size:600%;color:#ff0000;}
-        h2{text-align:center;font-family:Impact, sans-serif;font-size:400%;color:#22ff00;}
-        h3{text-align:center;font-family:"Zen Dots", sans-serif;font-size:300%;color:#2200ff;}
-        p{font-family:"Zen Dots", sans-serif;font-size:20px;text-align:center;font-weight:normal;color:#ffffff;}
-        .center {display: block;margin-left: auto;margin-right: auto;}
-        .left {float: left;}
-        .right {float: right;}
-        th, td {border: 1px solid; color: rgb(255, 255, 255);}
-        th, td {font-size:300%; color: rgb(255, 255, 255)}
+    <style>
+        body {
+            background-color: #000000;
+            background-repeat: repeat;
+            background-position: top left;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+        h1 { text-align: center; font-family: "Zen Dots", sans-serif; font-size: 600%; color: #ff0000; }
+        h2 { text-align: center; font-family: Impact, sans-serif; font-size: 400%; color: #22ff00; }
+        h3 { text-align: center; font-family: "Zen Dots", sans-serif; font-size: 300%; color: #2200ff; }
+        p { font-family: "Zen Dots", sans-serif; font-size: 20px; text-align: center; font-weight: normal; color: #ffffff; }
+        .center { display: block; margin-left: auto; margin-right: auto; }
+        .left { float: left; }
+        .right { float: right; }
+        th, td { border: 1px solid; color: rgb(255, 255, 255); }
+        th, td { font-size: 300%; color: rgb(255, 255, 255); }
+
+        .header {
+            position: relative;
+            top: 0;
+            padding: 10px 16px;
+            display: block;
+            margin: 0;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+        }
         .background-image {
-        position: absolute; /* Takes image out of normal flow */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Ensures image covers the container without distortion */
-        z-index: -1; /* Places image behind elements with a higher or default z-index */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
         .overlay-text {
-        position: relative; /* Ensures text is positioned above the image in the stacking order */
-        z-index: 2; /* Higher than image's z-index */
-        color: white;
-        /* Center the text */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
+            position: relative;
+            z-index: 2;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 40px 0 60px 0;
         }
         .zen-dots-regular {
-        font-family: "Zen Dots", sans-serif;
-        font-weight: 100;
-        font-style: normal;
-    }
-    .header {
-    position: relative;
-    top: 0;
-    padding: 10px 16px;
-    display: inline-block; 
-    margin: 0;
-    height: auto;
-    width:100%;
+            font-family: "Zen Dots", sans-serif;
+            font-weight: 100;
+            font-style: normal;
         }
-    .fa {
-    padding: 20px;
-    font-size: 30px;
-    width: 30px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 50%;
-    display: block;margin-left: auto;margin-right: auto;
-    }
-    .row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
-    }
-
-/* Create two equal columns that sits next to each other */
-    .column {
-    flex: 50%;
-    padding: 0 4px;
-    }
-
-    .column img {
-    margin-top: 8px;
-    vertical-align: middle;
-    }
-
-/* Set a specific color for each brand */
-
-/* Facebook */
-    .fa-youtube {
-    background: #ff0b50;
-    color: white;
-    }
-    .fa-instagram { 
-    background-image:url(https://img.freepik.com/free-vector/instagram-background-gradient-colors_23-2147819865.jpg?semt=ais_incoming&w=740&q=80);
-    background: #ed178c;
-    color: white;
-    }
-
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 30px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .fa-youtube {
+            background: #ff0b50;
+            color: white;
+        }
+        .fa-instagram {
+            background: #ed178c;
+            color: white;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+        .column {
+            flex: 50%;
+            padding: 0 4px;
+        }
+        .column img {
+            margin-top: 8px;
+            vertical-align: middle;
+        }
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
+
     <header>
         <div class="header" id="header">
-        <img src="backround.jpg" class="background-image" height="auto">
-        <div class="overlay-text" style="padding-top: 100px">
-            <img src="logo.png" width="25%"> 
-            <h1 style="font-size:450%">Ryan Kite Smith</h1>
+            <img src="backround.jpg" class="background-image" alt="background">
+            <div class="overlay-text">
+                <img src="logo.png" width="25%" alt="RKS Logo">
+                <h1 style="font-size: 450%">Ryan Kite Smith</h1>
+            </div>
         </div>
-    </div>
     </header>
+
     <body>
-    <p>Ryan Kite Smith is a drummer, percussionist and aspiring DJ/producer from Etobicoke. Ryan is versatile playing with rock bands, jazz bands and full orchestras in a variety of genres and styles from Funk to Mambos Ryan is equipped to do it all. He is currently studying at the University of Guelph for a B.A in Music collaborating with a variety of local artists and fellow students in performances and releases. </p>
-    <div>
-        <h3>Socials and Contacts</h3>
-        <a href="https://www.instagram.com/rks.official__/" class="fa fa-instagram" display="block" margin-left="auto" margin-right="auto"></a>
-        <a href="https://www.youtube.com/@ryethacarre" class="fa fa-youtube" display="block" margin-left="auto" margin-right="auto"></a>
-        <p>ryan@kitesmith.ca</p>
-        <p>416-709-5261</p>
-    </div>
-    <div class="row">
-    <div class="column">
-        <img src="RKS1.jpg" height="50%">
-        <img src="backround.jpg" width="25%" margin-top="-100px">
-        <img src="RKS2.jpg" height="50%">
-        <img src="RKS3.jpg" width="20%">
-        <img src="RKS4.jpg" width="25%">
+        <p>Ryan Kite Smith is a drummer, percussionist and aspiring DJ/producer from Etobicoke. Ryan is versatile playing with rock bands, jazz bands and full orchestras in a variety of genres and styles from Funk to Mambos Ryan is equipped to do it all. He is currently studying at the University of Guelph for a B.A in Music collaborating with a variety of local artists and fellow students in performances and releases.</p>
 
-    </div>
-    </div>
-    </div>
-    <h2>Find the latest and MOST powerful technology for sale here!</h2>
-    <h3 style="font-family:Comic Sans MS", "Comic Sans", cursive">All orders you make must be made at the store @ 620 Crossroads Blvd directly next to the Blockbuster Video!</h3>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif?20090304223820" alt="cosntructin" class="center" width="25%">
-    <p style="color:yellow; font-size:200%">Please enjoy some new popular music that came out last week and is now also my favorite song ☺☺☺ </p>
-    <iframe width="420" height="320" src="https://www.youtube.com/embed/Soa3gO7tL-c?autoplay=1&loop=1"class="center"></iframe>
-    <p style="color:indigo; font-size:250%"">Are you not sure what to buy? Check out some of our BESTSELLERS! These items have more than 1,000 items sold!</p>
-    <img src="https://media3.giphy.com/media/g1OLNcJs1s6oE/giphy.gif?cid=6c09b9524b44d84127eb033281894e39a78ebbfad982e759&rid=giphy.gif&ct=s" alt="?" class="right" width="10%" style="padding-top: 100px; padding-right: 10px">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Question_mark_3d.png" alt="?" class="left" width="7%" style="padding-top: 100px; padding-left: 10px">
-    <h2 class="center" style="padding-top: 100px"> FAQ! (Frequently Asked Questions)</h2>
-    <div style="clear: both;"></div>
-    <p style="color:yellow; font-size:200%">Q: Technology is pointless why should I buy into this >:(</p>
-    <p style="color:rgb(255, 0, 0); font-size:200%"">A: Thats not true! Technology is very useful and can help people in many aspects of life such as entertainment or medicine!</p>
-    <div></div>
-    <p style="color:lime; font-size:200%"">Q: Technology and computers are very cool! :O Whats the BEST computer in the world!?</p>
-    <p style="color:blue; font-size:200%"">A: Just last week a computer called "Deep Blue" won in a game of chess against the world's best player Gary Kasparov! Soon computers will be able to do anything a human can do!</p>
-    <p style="color:orange; font-size:200%"">Q: Did OJ Do it?</p> http://www.cnn.com/US/OJ/
-    <a href="http://www.cnn.com/US/OJ/" style="color:violet; font-size:200%"">Q: Considering the trial only opened last week it is hard to know. Please visit: http://www.cnn.com/US/OJ/ for more info</a> 
-    <img src="https://media.tenor.com/h_aRMA-hJtIAAAAd/pizza-tower-stupid-rat.gif" alt="rat" class="center" width="10%" style="padding-top: 1000px">
-    <p>Ryan Kite Smith is a drummer, percussionist, and aspiring DJ/producer from Etobicoke whose musical identity is defined by both versatility and curiosity. Equally comfortable behind a full drum kit, a set of congas, or electronic production software, Ryan has developed a reputation for adapting seamlessly across musical contexts. From driving the energy of rock bands to navigating the intricate phrasing of jazz ensembles and supporting the dynamic range of full orchestras, his playing reflects a deep understanding of rhythm and texture. Drawing inspiration from genres as diverse as funk, mambo, hip-hop, and electronic music, Ryan approaches each performance with a blend of technical precision and expressive creativity. His ability to move fluidly between traditional percussion and modern production tools allows him to bridge the gap between live performance and digital sound design.
-Currently pursuing a Bachelor of Arts in Music at the University of Guelph, Ryan is actively involved in the local music scene, collaborating with fellow students and artists on both live performances and recorded projects. He has contributed to a range of campus ensembles and independent releases, often taking on roles that extend beyond drumming into arrangement and production. Known among his peers for his work ethic and openness to experimentation, Ryan is constantly refining his craft, whether that means studying complex rhythmic traditions, producing tracks in his home studio, or performing at local venues and events. As he continues to grow as both a musician and producer, Ryan aims to carve out a unique artistic voice that blends his diverse influences into a cohesive and forward-thinking sound.</p>
-    <div class="center">
-    <p style="color:rgb(124, 124, 124); font-size:100%">Programmed from scratch in HTML5 and CSS.</p>
-    <a href="https://github.com/RyRoRyRo/RKS-EPK" style="color:rgb(124, 124, 124); font-size:100%; text-decoration: underline">Github</a>
-    </div>
-    
+        <div>
+            <h3>Socials and Contacts</h3>
+            <a href="https://www.instagram.com/rks.official__/" class="fa fa-instagram"></a>
+            <a href="https://www.youtube.com/@ryethacarre" class="fa fa-youtube"></a>
+            <p>ryan@kitesmith.ca</p>
+            <p>416-709-5261</p>
+        </div>
 
-</body>
+        <div class="row">
+            <div class="column">
+                <img src="RKS1.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 1">
+                <img src="RKS2.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 2">
+            </div>
+            <div class="column">
+                <img src="RKS3.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 3">
+                <img src="RKS4.jpg" style="width:100%; margin-top:8px;" alt="RKS Photo 4">
+            </div>
+        </div>
+
+        <div style="clear: both; padding-top: 40px;">
+            <iframe width="420" height="320" src="https://www.youtube.com/embed/Soa3gO7tL-c?loop=1"></iframe>
+        </div>
+
+        <div style="padding-top: 60px;">
+            <p>Ryan Kite Smith is a drummer, percussionist, and aspiring DJ/producer from Etobicoke whose musical identity is defined by both versatility and curiosity. Equally comfortable behind a full drum kit, a set of congas, or electronic production software, Ryan has developed a reputation for adapting seamlessly across musical contexts. From driving the energy of rock bands to navigating the intricate phrasing of jazz ensembles and supporting the dynamic range of full orchestras, his playing reflects a deep understanding of rhythm and texture. Drawing inspiration from genres as diverse as funk, mambo, hip-hop, and electronic music, Ryan approaches each performance with a blend of technical precision and expressive creativity. His ability to move fluidly between traditional percussion and modern production tools allows him to bridge the gap between live performance and digital sound design.
+            <br><br>
+            Currently pursuing a Bachelor of Arts in Music at the University of Guelph, Ryan is actively involved in the local music scene, collaborating with fellow students and artists on both live performances and recorded projects. He has contributed to a range of campus ensembles and independent releases, often taking on roles that extend beyond drumming into arrangement and production. Known among his peers for his work ethic and openness to experimentation, Ryan is constantly refining his craft, whether that means studying complex rhythmic traditions, producing tracks in his home studio, or performing at local venues and events. As he continues to grow as both a musician and producer, Ryan aims to carve out a unique artistic voice that blends his diverse influences into a cohesive and forward-thinking sound.</p>
+        </div>
+
+        <div class="center" style="padding-top: 40px; padding-bottom: 40px;">
+            <p style="color: rgb(124, 124, 124); font-size: 100%">Programmed from scratch in HTML5 and CSS.</p>
+            <a href="https://github.com/RyRoRyRo/RKS-EPK" style="color: rgb(124, 124, 124); font-size: 100%; text-decoration: underline">Github</a>
+        </div>
+    </body>
 </html>
